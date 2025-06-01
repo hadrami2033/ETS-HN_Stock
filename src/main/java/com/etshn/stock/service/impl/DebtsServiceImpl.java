@@ -86,6 +86,7 @@ public class DebtsServiceImpl implements DebtsService {
         d.setPayed(debtsDto.getPayed());
         d.setDescription(debtsDto.getDescription());
         d.setAmount(debtsDto.getAmount());
+        d.setAmountPayed(debtsDto.getAmountPayed());
 
         Debts updated = debtsRepository.save(d);
 

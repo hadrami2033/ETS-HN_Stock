@@ -11,7 +11,9 @@ public class DebtsDto {
     private long id;
     private String description;
     private BigDecimal amount;
+    private BigDecimal amountPayed;
     private Date dateCreation;
+    private Date updatedAt;
     private Integer payed;
     
     @NotNull

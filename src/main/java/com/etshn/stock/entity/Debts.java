@@ -30,7 +30,9 @@ public class Debts {
     private Long id;
     private String description;
     private BigDecimal amount;
+    private BigDecimal amountPayed;
     private Date dateCreation;
+    private Date updatedAt;
     private Integer payed;
     
     @ManyToOne
