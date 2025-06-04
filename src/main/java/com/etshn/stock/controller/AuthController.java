@@ -19,7 +19,7 @@ import com.etshn.stock.service.AuthService;
 
 
 //@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200"})
-//@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:2024"}, allowCredentials = "true" ,allowedHeaders = "**" , exposedHeaders = "token")
+@CrossOrigin(origins = { "http://localhost:3000", "https://keen-strength-ets-hn.up.railway.app"}, allowCredentials = "true" ,allowedHeaders = "**" , exposedHeaders = "token")
 @RestController
 @RequestMapping("/etshn/auth")
 public class AuthController {

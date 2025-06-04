@@ -24,7 +24,7 @@ import com.etshn.stock.utils.AppConstants;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:2024"})
+@CrossOrigin(origins = { "http://localhost:3000", "https://keen-strength-ets-hn.up.railway.app"})
 @RestController
 @RequestMapping("/etshn/magasinmouvments")
 public class MagasinMouvementController {
