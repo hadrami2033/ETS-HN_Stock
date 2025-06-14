@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.etshn.stock.entity.Mouvment;
 import com.etshn.stock.entity.Product;
 import com.etshn.stock.entity.Type;
+import com.etshn.stock.entity.Units;
 import com.etshn.stock.entity.User;
 import com.etshn.stock.exception.ResourceNotFoundException;
 import com.etshn.stock.payload.MouvementDto;
@@ -21,6 +22,7 @@ import com.etshn.stock.payload.MouvementResponse;
 import com.etshn.stock.repository.MouvmentRepository;
 import com.etshn.stock.repository.ProductRepository;
 import com.etshn.stock.repository.TypeRepository;
+import com.etshn.stock.repository.UnitRepository;
 import com.etshn.stock.repository.UserRepository;
 import com.etshn.stock.service.MouvementService;
 
@@ -33,6 +35,8 @@ public class MouvementServiceImpl implements MouvementService{
 	
 	private ProductRepository productRepository;
 	
+	private UnitRepository unitRepository;
+	
 	private UserRepository userRepository;
 	
 	private TypeRepository typeRepository;
@@ -40,7 +44,7 @@ public class MouvementServiceImpl implements MouvementService{
 
 
 	public MouvementServiceImpl(ModelMapper mapper, MouvmentRepository mouvmentRepository,
-			ProductRepository productRepository, UserRepository userRepository, TypeRepository typeRepository) {
+			ProductRepository productRepository, UserRepository userRepository, TypeRepository typeRepository, UnitRepository unitRepository) {
 		super();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		this.mapper = mapper;
@@ -48,6 +52,7 @@ public class MouvementServiceImpl implements MouvementService{
 		this.productRepository = productRepository;
 		this.userRepository = userRepository;
 		this.typeRepository = typeRepository;
+		this.unitRepository = unitRepository;
 	}
 
 	// convert Entity into DTO
@@ -64,8 +69,14 @@ public class MouvementServiceImpl implements MouvementService{
     
 	@Override
 	public MouvementDto add(MouvementDto mouvementDto) {
-		Product product = productRepository.findById(mouvementDto.getProductId())
+		Product product = null;
+		Units unit = null;
+		if(mouvementDto.getProductId() != null)
+		product = productRepository.findById(mouvementDto.getProductId())
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", mouvementDto.getProductId()));
+		if(mouvementDto.getUnitId() != null)
+		unit = unitRepository.findById(mouvementDto.getUnitId())
+                .orElseThrow(() -> new ResourceNotFoundException("Unit", "id", mouvementDto.getUnitId()));
 		
 		User user = userRepository.findById(mouvementDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", mouvementDto.getUserId()));
@@ -77,7 +88,10 @@ public class MouvementServiceImpl implements MouvementService{
          //       .orElseThrow(() -> new ResourceNotFoundException("Client", "id", mouvementDto.getClientId()));
 		
 		Mouvment mouvement = mapToEntity(mouvementDto);
+		if(product != null)
 		mouvement.setProduct(product);
+		if(unit != null)
+		mouvement.setUnit(unit);
 		mouvement.setType(type);
 		mouvement.setUser(user);
 		//mouvement.setClient(client);

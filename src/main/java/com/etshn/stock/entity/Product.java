@@ -21,9 +21,11 @@ public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String nom;
     private String description;
     private Integer quantiteEnStock = 0;
+    private Integer uniteEnStock = 0;
     private BigDecimal prixAchat;
     private BigDecimal prixVente;
     private Date dateCreation;

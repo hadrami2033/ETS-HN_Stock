@@ -66,6 +66,8 @@ public class ProductServiceImpl implements ProductService{
         p.setPrixAchat(productDto.getPrixAchat());
         p.setPrixVente(productDto.getPrixVente());
         p.setQuantiteEnStock(productDto.getQuantiteEnStock());
+        p.setUniteEnStock(productDto.getUniteEnStock());
+
         p.setDateCreation(productDto.getDateCreation());
 
         Product updatedProduct = productRepository.save(p);

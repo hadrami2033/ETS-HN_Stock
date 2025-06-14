@@ -27,9 +27,11 @@ public class MouvementDto {
     private Long userId;
     private RegisterDto user;
     
-    @NotNull
     private Long productId;
     private ProductDto product;
+    
+    private Long unitId;
+    private UnitDto unit;
 
     @NotNull
     private Long typeId;

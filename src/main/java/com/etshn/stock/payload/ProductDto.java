@@ -10,6 +10,7 @@ public class ProductDto {
     private String nom;
     private String description;
     private Integer quantiteEnStock;
+    private Integer uniteEnStock;
     private BigDecimal prixAchat;
     private BigDecimal prixVente;
     private Date dateCreation;
