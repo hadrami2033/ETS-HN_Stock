@@ -1,14 +1,22 @@
 package com.etshn.stock.service;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.etshn.stock.payload.InvoiceDto;
 import com.etshn.stock.payload.MouvementDto;
 import com.etshn.stock.payload.MouvementResponse;
 
 public interface MouvementService {
 	MouvementDto add(MouvementDto mouvementDto);
 
+	InvoiceDto addInvoice(InvoiceDto invoiceDto);
+	
+	InvoiceDto getInvoice(Long invoiceId);
+
 	MouvementDto get(Long mouvementId);
+	
+	List<MouvementDto> findByInvoiceId(Long invoiceId);
 	
 	MouvementDto update(MouvementDto mouvementDto, Long id);
 

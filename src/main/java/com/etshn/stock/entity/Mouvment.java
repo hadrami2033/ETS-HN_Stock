@@ -38,6 +38,10 @@ public class Mouvment {
 	    @JoinColumn(name = "user_id")
 	    private User user;
 	    
+	    @ManyToOne
+	    @JoinColumn(name = "invoice_id")
+	    private Invoice invoice;
+	    
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "type_id")
 	    private Type type;

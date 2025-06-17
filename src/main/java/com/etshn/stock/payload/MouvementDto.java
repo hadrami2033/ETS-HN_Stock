@@ -32,6 +32,9 @@ public class MouvementDto {
     
     private Long unitId;
     private UnitDto unit;
+    
+    private Long invoiceId;
+    private InvoiceDto invoice;
 
     @NotNull
     private Long typeId;

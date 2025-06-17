@@ -1,6 +1,7 @@
 package com.etshn.stock.controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.etshn.stock.payload.InvoiceDto;
 import com.etshn.stock.payload.MouvementDto;
 import com.etshn.stock.payload.MouvementResponse;
 import com.etshn.stock.service.MouvementService;
@@ -41,9 +43,24 @@ public class MouvementController {
     	return new ResponseEntity<>(mouvementService.add(mouvementDto), HttpStatus.CREATED);
     }
     
+    @PostMapping("/addinvoice")
+    public ResponseEntity<InvoiceDto> add(@Valid @RequestBody InvoiceDto invoiceDto){
+    	return new ResponseEntity<>(mouvementService.addInvoice(invoiceDto), HttpStatus.CREATED);
+    }
+    
+    @GetMapping(value = "/byinvoice/{id}")
+    public ResponseEntity< List<MouvementDto> > getByInvoices(@PathVariable(name = "id") long id){
+        return ResponseEntity.ok(mouvementService.findByInvoiceId(id));
+    }
+    
     @GetMapping(value = "/{id}")
     public ResponseEntity<MouvementDto> getById(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(mouvementService.get(id));
+    }
+    
+    @GetMapping(value = "/invoice/{id}")
+    public ResponseEntity<InvoiceDto> getInvoiceById(@PathVariable(name = "id") long id){
+        return ResponseEntity.ok(mouvementService.getInvoice(id));
     }
     
     @PutMapping("/{id}")
