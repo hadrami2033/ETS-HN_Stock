@@ -38,4 +38,8 @@ public class Debts {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    
+    @ManyToOne
+    @JoinColumn(name = "employe_id")
+    private Employes employe;
 }

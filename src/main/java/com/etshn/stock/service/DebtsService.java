@@ -18,6 +18,8 @@ public interface DebtsService {
     
 	DebtsResponce findByClientAndPayed(Long clientId, Integer payed,int pageNo, int pageSize, String sortBy, String sortDir);
 
+	DebtsResponce findByEmployeAndPayed(Long employeId, Integer payed,int pageNo, int pageSize, String sortBy, String sortDir);
+
 	DebtsResponce findByPayedAndInterval(Integer payed, Date startDate, Date andDate, int pageNo, int pageSize, String sortBy, String sortDir);
 
 	DebtClientDto getClientDebts(Long clientId, Integer payed);

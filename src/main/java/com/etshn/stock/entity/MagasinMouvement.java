@@ -29,6 +29,8 @@ public class MagasinMouvement {
     private Long id;
     private Date dateCreation;
     private Integer quantity;
+    private Integer rest;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")

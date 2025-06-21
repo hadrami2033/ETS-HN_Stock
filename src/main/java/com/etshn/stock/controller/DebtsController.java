@@ -71,6 +71,19 @@ public class DebtsController {
         return debtsService.findByClientAndPayed(clientId, payed, pageNo, pageSize, sortBy, sortDir);
     }
     
+    @GetMapping(value = "/byemploye")
+    public DebtsResponce findByEmploye(
+    		 @RequestParam(value = "employe", required = true) long employeId,
+    		 @RequestParam(value = "payed", required = true) int payed,
+    		 @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+             @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+             @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+             @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    
+    ){
+        return debtsService.findByEmployeAndPayed(employeId, payed, pageNo, pageSize, sortBy, sortDir);
+    }
+    
     @GetMapping(value = "/byinterval")
     public DebtsResponce findByInterval(
     		 @RequestParam(value = "payed", required = true) int payed,

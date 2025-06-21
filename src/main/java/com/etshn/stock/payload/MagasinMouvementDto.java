@@ -12,6 +12,7 @@ public class MagasinMouvementDto {
     @NotNull
     private Integer quantity;
     private Date dateCreation;
+    private Integer rest;
     
     @NotNull
     private Long productId;

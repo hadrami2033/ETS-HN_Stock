@@ -14,32 +14,35 @@ import org.springframework.stereotype.Service;
 
 import com.etshn.stock.entity.Client;
 import com.etshn.stock.entity.Debts;
+import com.etshn.stock.entity.Employes;
 import com.etshn.stock.exception.ResourceNotFoundException;
 import com.etshn.stock.payload.DebtClientDto;
 import com.etshn.stock.payload.DebtsDto;
 import com.etshn.stock.payload.DebtsResponce;
 import com.etshn.stock.repository.ClientRepository;
 import com.etshn.stock.repository.DebtsRepository;
+import com.etshn.stock.repository.EmployeRepository;
 import com.etshn.stock.service.DebtsService;
 
 @Service
 public class DebtsServiceImpl implements DebtsService {
 
 	private ModelMapper mapper;
-	
 	private DebtsRepository debtsRepository;
-	
 	private ClientRepository clientRepository;
+	private EmployeRepository employeRepository;
+
 
 	
 	
 	
-	public DebtsServiceImpl(ModelMapper mapper, DebtsRepository debtsRepository, ClientRepository clientRepository) {
+	public DebtsServiceImpl(ModelMapper mapper, DebtsRepository debtsRepository, ClientRepository clientRepository, EmployeRepository employeRepository) {
 		super();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		this.mapper = mapper;
 		this.debtsRepository = debtsRepository;
 		this.clientRepository = clientRepository;
+		this.employeRepository = employeRepository;
 	}
 	
 	// convert Entity into DTO
@@ -60,12 +63,22 @@ public class DebtsServiceImpl implements DebtsService {
     }
 
 	@Override
-	public DebtsDto add(DebtsDto debtsDto) {		
-		Client client = clientRepository.findById(debtsDto.getClientId())
+	public DebtsDto add(DebtsDto debtsDto) {
+		Client client = null;
+		Employes employe = null;
+		if(debtsDto.getClientId() != null)
+		client = clientRepository.findById(debtsDto.getClientId())
                 .orElseThrow(() -> new ResourceNotFoundException("Client", "id", debtsDto.getClientId()));
+		if(debtsDto.getEmployeId() != null)
+		employe = employeRepository.findById(debtsDto.getEmployeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Employe", "id", debtsDto.getEmployeId()));
+
 		//debtsDto.setClient(mapClientToDTO(client));
 		Debts debts = mapToEntity(debtsDto);
+		if(client != null)
 		debts.setClient(client);
+		if(employe != null)
+		debts.setEmploye(employe);
 		
 		Debts saved = debtsRepository.save(debts);
         return mapToDTO(saved);
@@ -127,6 +140,35 @@ public class DebtsServiceImpl implements DebtsService {
 		
 		return response;	
 	}
+	
+	@Override
+	public DebtsResponce findByEmployeAndPayed(Long clientId, Integer payed, int pageNo, int pageSize, String sortBy,
+			String sortDir) {
+		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Debts> debts = debtsRepository.findByEmployeIdAndPayedOrderByDateCreationDesc(clientId, payed, pageable);
+
+        // get content for page object
+        List<Debts> list = debts.getContent();
+
+        List<DebtsDto> content= list.stream().map(m -> mapToDTO(m)).collect(Collectors.toList());
+
+        DebtsResponce response = new DebtsResponce();
+        
+        response.setContent(content);
+        response.setPageNo(debts.getNumber());
+        response.setPageSize(debts.getSize());
+        response.setTotalElements(debts.getTotalElements());
+        response.setTotalPages(debts.getTotalPages());
+        response.setLast(debts.isLast());
+		
+		return response;	
+	}
+
 
 	@Override
 	public DebtsResponce findByPayedAndInterval(Integer payed, Date startDate, Date andDate, int pageNo, int pageSize,

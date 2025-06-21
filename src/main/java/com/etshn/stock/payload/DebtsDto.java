@@ -16,7 +16,9 @@ public class DebtsDto {
     private Date updatedAt;
     private Integer payed;
     
-    @NotNull
     private Long clientId;
     private ClientDto client;
+    
+    private Long employeId;
+    private EmployeDto employe;
 }
