@@ -23,4 +23,7 @@ public interface DebtsService {
 	DebtsResponce findByPayedAndInterval(Integer payed, Date startDate, Date andDate, int pageNo, int pageSize, String sortBy, String sortDir);
 
 	DebtClientDto getClientDebts(Long clientId, Integer payed);
+	
+	DebtClientDto getClientPaidDebts(Long clientId, Integer payed);
+
 }

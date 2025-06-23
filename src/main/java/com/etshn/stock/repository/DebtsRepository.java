@@ -17,5 +17,7 @@ public interface DebtsRepository extends JpaRepository<Debts, Long> {
 	Page<Debts> findByPayedAndDateCreationBetweenOrderByDateCreationDesc(Integer payed, Date startDate, Date andDate, Pageable pageable);
 	@Query("select sum(d.amount) from Debts d where d.client.id = ?1 and d.payed = ?2")
     List<BigDecimal> getClientDebts(Long clientId, Integer payed);
+	@Query("select sum(d.amountPayed) from Debts d where d.client.id = ?1 and d.payed = ?2")
+    List<BigDecimal> getClientPaidsDebts(Long clientId, Integer payed);
 
 }

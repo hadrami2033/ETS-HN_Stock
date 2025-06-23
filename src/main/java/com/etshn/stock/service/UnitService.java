@@ -1,6 +1,7 @@
 package com.etshn.stock.service;
 
 import com.etshn.stock.payload.UnitDto;
+import com.etshn.stock.payload.UnitResponse;
 
 public interface UnitService {
 	UnitDto add(UnitDto unitDto);
@@ -12,4 +13,7 @@ public interface UnitService {
     void delete(Long id);
     
 	UnitDto findByProductId(Long productId);
+	
+	UnitResponse findAll(String nom, int pageNo, int pageSize, String sortBy, String sortDir);
+
 }

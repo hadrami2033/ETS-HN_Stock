@@ -3,7 +3,6 @@ package com.etshn.stock.payload;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data

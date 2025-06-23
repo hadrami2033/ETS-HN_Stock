@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etshn.stock.payload.UnitDto;
+import com.etshn.stock.payload.UnitResponse;
 import com.etshn.stock.service.UnitService;
+import com.etshn.stock.utils.AppConstants;
 
 import jakarta.validation.Valid;
 
@@ -53,4 +56,14 @@ public class UnitsController {
         return ResponseEntity.ok(unitService.findByProductId(id));
     }
 	
+    @GetMapping(value = "/all")
+    public UnitResponse findAll(
+   		 	 @RequestParam(value = "nom", required = true) String nom,
+    		 @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+             @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+             @RequestParam(value = "sortBy", defaultValue = "product.dateCreation", required = false) String sortBy,
+             @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ){
+        return unitService.findAll(nom, pageNo, pageSize, sortBy, sortDir);
+    }
 }

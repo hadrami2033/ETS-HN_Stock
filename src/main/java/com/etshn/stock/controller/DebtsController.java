@@ -106,4 +106,12 @@ public class DebtsController {
         return ResponseEntity.ok(debtsService.getClientDebts(clientId, payed));
     }
     
+    @GetMapping(value = "/clientpaiddebt")
+    public ResponseEntity<DebtClientDto> getClientPaidDebts(
+   		 @RequestParam(value = "client", required = true) long clientId,
+   		 @RequestParam(value = "payed", required = true) int payed
+    ){
+        return ResponseEntity.ok(debtsService.getClientPaidDebts(clientId, payed));
+    }
+    
 }

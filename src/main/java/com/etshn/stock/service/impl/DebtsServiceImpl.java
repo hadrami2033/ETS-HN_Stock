@@ -207,4 +207,13 @@ public class DebtsServiceImpl implements DebtsService {
 		return clientDebt;
 	}
 
+	@Override
+	public DebtClientDto getClientPaidDebts(Long clientId, Integer payed) {
+		List<BigDecimal> debtList = debtsRepository.getClientPaidsDebts(clientId, payed);
+		BigDecimal debt = (debtList.size() > 0 && debtList.get(0) != null ) ? debtList.get(0) : BigDecimal.valueOf(0);
+		DebtClientDto clientDebt = new DebtClientDto(debt);
+
+		return clientDebt;
+	}
+	
 }
