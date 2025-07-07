@@ -16,7 +16,7 @@ import com.etshn.stock.service.CachierService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = { "http://localhost:3000", "https://keen-strength-ets-hn.up.railway.app"})
+@CrossOrigin(origins = { "http://localhost:3000", "https://ets-hn-stock-front.vercel.app"})
 @RestController
 @RequestMapping("/etshn/cachier")
 public class CachierController {
