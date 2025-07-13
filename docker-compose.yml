@@ -1,15 +1,19 @@
 services:
   mysql:
     image: mysql:8
+    container_name: mysql
+    restart: always
     environment:
       MYSQL_DATABASE: stockdb
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: etshn-2025
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
   api:
     build: .
+    container_name: spring-api
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
