@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_DATABASE: stockdb
       MYSQL_USER: springuser
-      MYSQL_PASSWORD: etshn2025
+      MYSQL_PASSWORD: etshnapp
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
@@ -24,7 +24,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stockdb
       SPRING_DATASOURCE_USERNAME: springuser
-      SPRING_DATASOURCE_PASSWORD: etshn2025
+      SPRING_DATASOURCE_PASSWORD: etshnapp
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
 volumes:
