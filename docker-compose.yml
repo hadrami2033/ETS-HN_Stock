@@ -5,27 +5,23 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: stockdb
-      MYSQL_USER: springuser
-      MYSQL_PASSWORD: etshnapp
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: secret
     volumes:
       - mysql_data:/var/lib/mysql
-
-  spring-api:
+    ports:
+      - "3306:3306"
+  api:
     build: .
     container_name: spring-api
     restart: always
-    depends_on:
-      - mysql
     ports:
       - "8080:8080"
+    depends_on:
+      - mysql
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stockdb
-      SPRING_DATASOURCE_USERNAME: springuser
-      SPRING_DATASOURCE_PASSWORD: etshnapp
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: secret
 
 volumes:
   mysql_data:
