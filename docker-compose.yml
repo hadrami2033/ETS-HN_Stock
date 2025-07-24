@@ -10,6 +10,7 @@ services:
       MYSQL_ROOT_HOST: localhost
     volumes:
       - mysql_data:/var/lib/mysql
+      - /opt/mysql-backups:/backups
     ports:
       - "3306:3306"
     healthcheck:
